@@ -1,5 +1,5 @@
 // This is the main file for the game logic and function
-//
+// 
 //
 #include "game.h"
 #include "Framework\console.h"
@@ -232,7 +232,7 @@ void renderMap()
         c.X = 5 * i;
         c.Y = i + 1;
         colour(colors[i]);
-        g_Console.writeToBuffer(c, " °±²Û", colors[i]);
+        g_Console.writeToBuffer(c, " Â°Â±Â²Ã›", colors[i]);
     }
 }
 
