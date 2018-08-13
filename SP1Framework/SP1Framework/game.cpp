@@ -1,10 +1,13 @@
 // This is the main file for the game logic and function
 //
+//
 #include "game.h"
 #include "Framework\console.h"
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <fstream>
+#include <string>
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;
@@ -16,7 +19,7 @@ EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 
 // Console object
-Console g_Console(80, 25, "SP1 Framework");
+Console g_Console(38, 16, "SP1 Framework");
 
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
@@ -194,7 +197,7 @@ void processUserInput()
 void clearScreen()
 {
     // Clears the buffer with this colour attribute
-    g_Console.clearBuffer(0x1F);
+    g_Console.clearBuffer(0x1f);
 }
 
 void renderSplashScreen()  // renders the splash screen
@@ -213,7 +216,8 @@ void renderSplashScreen()  // renders the splash screen
 
 void renderGame()
 {
-    renderMap();        // renders the map to the buffer first
+    //renderMap();        // renders the map to the buffer first
+	renderBackground(); // renders the thing
     renderCharacter();  // renders the character into the buffer
 }
 
@@ -231,8 +235,31 @@ void renderMap()
         c.X = 5 * i;
         c.Y = i + 1;
         colour(colors[i]);
-        g_Console.writeToBuffer(c, " Â°Â±Â²Ã›", colors[i]);
+        g_Console.writeToBuffer(c, " °±²Û", colors[i]);
     }
+}
+
+void renderBackground()
+{
+	std::string line;
+	std::ifstream mapOne("map01.txt");
+	if (mapOne.is_open())
+	{
+		for (int i = 0; i < 13; i++)
+		{
+			std::getline(mapOne, line);
+			COORD c;
+			c.X = 0;
+			c.Y = i + 1;
+
+			g_Console.writeToBuffer(c, line, 0x1f);
+		}
+		mapOne.close();
+	}
+	else
+	{
+		//std::cout << "Unable to open file";
+	}
 }
 
 void renderCharacter()
