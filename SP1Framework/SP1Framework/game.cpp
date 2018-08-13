@@ -11,11 +11,11 @@
 #include <string>
 using namespace std;
 string line;
-bool aright[36];
+int *Maze[14];
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
-int *Maze[14];
+
 // Game specific variables here
 SGameChar   g_sChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
